@@ -3,7 +3,7 @@ import { ApolloServer } from "apollo-server-express";
 import http from "http";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 
-import { typeDefs, resolvers } from "./src/schema";
+import { typeDefs, resolvers } from "./src/peopleCarsScheme";
 
 const startApolloServer = async (typeDefs, resolvers) => {
     const app = express();

@@ -94,4 +94,74 @@ const cars = [
     },
 ];
 
+const typeDefs = gql`
+    type Person {
+        id: String!
+        firstName: String
+        lastName: String
+    }
+
+    type Car {
+        id: String!
+        year: Int
+        make: String
+        model: String
+        price: Float
+        personId: String
+    }
+
+    type Query {
+        person(id: String!): Person
+        people: [Person]
+    }
+
+    type Mutation {
+        addPerson(id: String, firstName: String!, lastName: String!): Person
+        updatePerson(id: String!, firstName: String, lastName: String): Person
+        removePerson(id: String!): Person
+    }
+`;
+
+const resolvers = {
+    Query: {
+        people: () => people,
+        person(parent, args, context, info) {
+            return find(people, { id: args.id });
+        },
+    },
+    Mutation: {
+        addPerson(root, args) {
+            const newPerson = {
+                id: args.id,
+                firstName: args.firstName,
+                lastName: args.lastName,
+            };
+            people.push(newPerson);
+
+            return newPerson;
+        },
+        updatePerson: (root, args) => {
+            const person = find(people, { id: args.id });
+            if (!person) {
+                throw new Error(`Couldn't find person with id ${args.id}`);
+            }
+
+            person.firstName = args.firstName;
+            person.lastName = args.lastName;
+
+            return person;
+        },
+        removePerson: (root, args) => {
+            const removedPerson = find(people, { id: args.id });
+            if (!removedPerson) {
+                throw new Error(`Couldn't find person with id ${args.id}`);
+            }
+
+            remove(people, { id: args.id });
+
+            return removedPerson;
+        },
+    },
+};
+
 export { typeDefs, resolvers };
