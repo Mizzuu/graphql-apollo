@@ -14,7 +14,7 @@ const getStyles = () => ({
 const Car = (props) => {
     const styles = getStyles();
     const [id] = useState(props.id);
-    const [year, setYear] = useState(props.yearear);
+    const [year, setYear] = useState(props.year);
     const [make, setMake] = useState(props.make);
     const [model, setModel] = useState(props.model);
     const [price, setPrice] = useState(props.price);

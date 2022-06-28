@@ -50,7 +50,7 @@ export const GET_CARS = gql`
             id
             year
             make
-            module
+            model
             price
             personId
         }
@@ -87,7 +87,7 @@ export const ADD_CAR = gql`
 export const UPDATE_CAR = gql`
     mutation UpdateCar(
         $id: String!
-        $year: String!
+        $year: Int!
         $make: String!
         $model: String!
         $price: Float!

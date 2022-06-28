@@ -6,8 +6,11 @@ import { UPDATE_CAR } from "../../queries";
 
 const UpdateCar = (props) => {
     const [id] = useState(props.id);
-    const [firstName, setFirstName] = useState(props.firstName);
-    const [lastName, setLastName] = useState(props.lastName);
+    const [year, setYear] = useState(props.year);
+    const [make, setMake] = useState(props.make);
+    const [model, setModel] = useState(props.model);
+    const [price, setPrice] = useState(props.price);
+    const [personId, setPersonId] = useState(props.personId);
     const [updateCar] = useMutation(UPDATE_CAR);
 
     const [form] = Form.useForm();
@@ -18,13 +21,16 @@ const UpdateCar = (props) => {
     }, []);
 
     const onFinish = (values) => {
-        const { firstName, lastName } = values;
+        const { year, make, model, price, personId } = values;
 
         updateCar({
             variables: {
                 id,
-                firstName,
-                lastName,
+                year,
+                make,
+                model,
+                price,
+                personId,
             },
         });
 
@@ -34,11 +40,20 @@ const UpdateCar = (props) => {
     const updateStateVariable = (variable, value) => {
         props.updateStateVariable(variable, value);
         switch (variable) {
-            case "firstName":
-                setFirstName(value);
+            case "year":
+                setYear(value);
                 break;
-            case "lastName":
-                setLastName(value);
+            case "make":
+                setMake(value);
+                break;
+            case "model":
+                setModel(value);
+                break;
+            case "price":
+                setPrice(value);
+                break;
+            case "personId":
+                setPersonId(value);
                 break;
             default:
                 break;
@@ -52,36 +67,92 @@ const UpdateCar = (props) => {
             layout="inline"
             onFinish={onFinish}
             initialValues={{
-                firstName: firstName,
-                lastName: lastName,
+                year: year,
+                make: make,
+                model: model,
+                price: price,
+                personId: personId,
             }}
         >
             <Form.Item
-                name="firstName"
+                name="year"
                 rules={[
                     {
                         required: true,
-                        message: "Please input your first name!",
+                        type: "integer",
+                        message: "Please input the year of your car created!",
                     },
                 ]}
             >
                 <Input
-                    placeholder="i.e. John"
+                    placeholder="2012"
                     onChange={(e) =>
-                        updateStateVariable("firstName", e.target.value)
+                        updateStateVariable("year", e.target.value)
                     }
                 />
             </Form.Item>
             <Form.Item
-                name="lastName"
+                name="make"
                 rules={[
-                    { required: true, message: "Please input your last name!" },
+                    {
+                        required: true,
+                        message: "Please input who made your car!",
+                    },
                 ]}
             >
                 <Input
-                    placeholder="i.e. Smith"
+                    placeholder="Honda"
                     onChange={(e) =>
-                        updateStateVariable("lastName", e.target.value)
+                        updateStateVariable("make", e.target.value)
+                    }
+                />
+            </Form.Item>
+            <Form.Item
+                name="model"
+                rules={[
+                    {
+                        required: true,
+                        message: "Please input the model of your car!",
+                    },
+                ]}
+            >
+                <Input
+                    placeholder="Fit"
+                    onChange={(e) =>
+                        updateStateVariable("model", e.target.value)
+                    }
+                />
+            </Form.Item>
+            <Form.Item
+                name="price"
+                rules={[
+                    {
+                        required: true,
+                        type: "float",
+                        message: "Please input the price of your car!",
+                    },
+                ]}
+            >
+                <Input
+                    placeholder="17000"
+                    onChange={(e) =>
+                        updateStateVariable("price", e.target.value)
+                    }
+                />
+            </Form.Item>
+            <Form.Item
+                name="personId"
+                rules={[
+                    {
+                        required: true,
+                        message: "Please input the person of your car!",
+                    },
+                ]}
+            >
+                <Input
+                    placeholder="2012"
+                    onChange={(e) =>
+                        updateStateVariable("personId", e.target.value)
                     }
                 />
             </Form.Item>
@@ -91,14 +162,17 @@ const UpdateCar = (props) => {
                         type="primary"
                         htmlType="submit"
                         disabled={
-                            (!form.isFieldTouched("firstName") &&
-                                !form.isFieldTouched("lastName")) ||
+                            (!form.isFieldTouched("year") &&
+                                !form.isFieldTouched("make") &&
+                                !form.isFieldTouched("model") &&
+                                !form.isFieldTouched("price") &&
+                                !form.isFieldTouched("personId")) ||
                             form
                                 .getFieldsError()
                                 .filter(({ errors }) => errors.length).length
                         }
                     >
-                        Update Contact
+                        Update Car
                     </Button>
                 )}
             </Form.Item>

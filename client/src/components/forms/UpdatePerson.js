@@ -98,7 +98,7 @@ const UpdatePerson = (props) => {
                                 .filter(({ errors }) => errors.length).length
                         }
                     >
-                        Update Contact
+                        Update Person
                     </Button>
                 )}
             </Form.Item>

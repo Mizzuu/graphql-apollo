@@ -57,7 +57,7 @@ const AddCar = () => {
                 rules={[
                     {
                         required: true,
-                        type: "integer",
+                        type: "Integer",
                         message: "Please input the year of your car created!",
                     },
                 ]}
@@ -94,7 +94,7 @@ const AddCar = () => {
                 rules={[
                     {
                         required: true,
-                        type: "float",
+                        type: "Float",
                         message: "Please input the price of your car!",
                     },
                 ]}
@@ -111,7 +111,7 @@ const AddCar = () => {
                     },
                 ]}
             >
-                <Input placeholder="Mazda" />
+                <Input placeholder="Mak" />
             </Form.Item>
 
             <Form.Item shouldUpdate={true}>
